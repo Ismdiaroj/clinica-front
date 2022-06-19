@@ -35,13 +35,14 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
     this.cargarUsuario();
     this.cargarConsultas();
+
   }
 
   cargarConsultas():void{
     this.pacienteService.getPacientes().subscribe(
       response => {
         response.forEach(paciente=>{
-          if(paciente.idFisio==this.idUsuario){
+          if(paciente.idFisio==this.usuario.id){
             this.usuarios.push(paciente)
             this.pacienteService.getConsultasFromPaciente(paciente.id).subscribe(
               cons=>{

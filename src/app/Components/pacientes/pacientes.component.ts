@@ -66,8 +66,8 @@ export class PacientesComponent implements OnInit {
               )
             } else {
               swalWithBootstrapButtons.fire(
-                "Error al eliminar la iniciativa",
-                "No se puede eliminar la iniciativa '" + paciente.nombre + "' porque tiene usuarios asignados.",
+                "Error al eliminar al usuario",
+                "No se puede eliminar al usuario '" + paciente.nombre + "' porque tiene consultas asignadas.",
                 "warning"
               );
             }

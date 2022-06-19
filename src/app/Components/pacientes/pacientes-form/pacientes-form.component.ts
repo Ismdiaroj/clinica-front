@@ -133,7 +133,6 @@ export class PacientesFormComponent implements OnInit {
 
  // Enviar put con los datos del formulario
  actualizarPaciente():void{
-   console.log(this.paciente)
   this.pacienteService.putPaciente(this.paciente).subscribe(
     response => {
       this.router.navigate(['/usuarios']),
