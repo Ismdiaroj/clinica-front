@@ -1,0 +1,108 @@
+
+<!-- Consultas pendientes de un Empleado -->
+<div class="container mt-3" *ngIf="role=='empleado'">
+  <div class="card border-primary mb-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Mostrando consultas del Empleado: {{usuario.nombre}}</span>
+          <button *ngIf="!verHistorial" class="btn btn-secondary d-flex gap-2" (click)="cambiarHistorial()"> Ver Historial de Consultas<mat-icon>task</mat-icon> </button>
+          <button *ngIf="verHistorial"class="btn btn-secondary d-flex gap-2" (click)="cambiarHistorial()"> Ver Consultas Pendientes<mat-icon>task</mat-icon> </button> </div>
+
+          <div class="card-body text-primary">
+
+          <div class="d-flex justify-content-center">
+              <div *ngIf="listado?.length! <= 0" class="alert alert-info">
+                  <h3> El Empleado no tiene consultas </h3>
+              </div>
+
+              <table class="table table-striped w-auto mt-1" *ngIf="listado?.length! > 0">
+                  <thead class="text-center">
+                      <tr>
+                        <th>Paciente</th>
+                        <th>Fecha</th>
+                        <th>Seguro</th>
+                        <th>Consulta</th>
+                        <th>Borrar</th>
+                      </tr>
+                  </thead>
+                  <tbody class="text-center">
+                      <tr *ngFor="let fila of listado">
+
+                        <td class="td-centerd">{{fila.p.nombre}}</td>
+
+                        <td class="td-centered"> {{fila.c.fecha}} </td>
+                          <td class="td-centered"> {{fila.c.seguro}} </td>
+
+                          <td>
+                          <button type="button" class="btn btn-primary d-flex justify-content-center align-items-center gap-2 w-100" [routerLink]="['/consultas/form/',usuario.id,fila.c.id]"> Ver Consulta <mat-icon>edit</mat-icon> </button>
+                          </td>
+                          <td>
+                          <button type="button" class="btn btn-danger d-flex justify-content-center align-items-center gap-2 w-100" (click)="eliminarConsulta(fila.c)"> Eliminar <mat-icon>delete</mat-icon> </button>
+                          </td>
+
+
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+
+
+<!-- Perfil de un Paciente -->
+<div class="container mt-3" *ngIf="role=='paciente'">
+
+  <div class="card border-primary mb-3 d-flex">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Paciente: {{usuario.nombre}}</span>
+          <span>Fisio Asignado: {{fisio.nombre}}</span>
+      </div>
+
+          <div class="card-body text-primary d-flex justify-content-between">
+
+            <div class="d-flex justify-content-between">
+                <div *ngIf="consultas?.length! <= 0" class="alert alert-info">
+                    <h3> El Empleado no tiene consultas </h3>
+                </div>
+            </div>
+
+            <!-- CARD PERFIL PACIENTE -->
+            <div class="card w-50 h-100" style="width: 18rem;">
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Nombre: {{usuario.nombre}}</li>
+                <li class="list-group-item">Email: {{usuario.email}}</li>
+                <li class="list-group-item">Teléfono: {{usuario.telefono}}</li>
+
+
+                <li class="list-group-item">Recomendaciones</li>
+                <div class="list-group-item">
+                  <p class="card-text">{{usuario.recomendaciones}}</p>
+                </div>
+
+                <li class="list-group-item">Ejercicios</li>
+                <div class="list-group-item">
+                  <p class="card-text">{{usuario.ejercicios}}</p>
+                </div>
+              </ul>
+
+            </div>
+
+            <!-- CARDS CITAS PACIENTES -->
+            <div class="w-50 text-primary ">
+              <div class="card w-100 " *ngFor="let consulta of consultas">
+                <div class="card-body">
+                  <h5 class="text-card">Fecha: {{consulta.fecha}}</h5>
+                  <p class="text-body">Seguro: {{consulta.seguro}}</p>
+                  <button type="button" class="btn btn-danger d-flex justify-content-center align-items-center gap-2" (click)="eliminarConsulta(consulta)"> Eliminar <mat-icon>delete</mat-icon> </button>
+                </div>
+              </div>
+            </div>
+
+      </div>
+
+  </div>
+
+</div>

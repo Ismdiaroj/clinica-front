@@ -1,0 +1,167 @@
+<div class="container p-3">
+  <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+              {{ textoTitulo == true? titulo1 : titulo2}}
+          </div>
+          <div>
+              <button class="btn btn-info d-flex align-items-center gap-2" routerLink="/usuarios"> <mat-icon>keyboard_backspace</mat-icon> Volver atrás </button>
+          </div>
+      </div>
+      <div class="card-body">
+
+          <form [formGroup]="usuariosForm">
+              <div class="row justify-content-center gap-1">
+
+                  <!-- Campo DNI -->
+                  <div class="form-group row">
+                      <label for="titulo" class="col-form-label cl-sm-2">DNI<span class="text-red">*</span></label>
+                      <input type="text" id="dni" class="form-control" [(ngModel)]="paciente.dni" name="title" formControlName="dni">
+
+                      <!-- Validaciones de title -->
+                      <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('dni')?.touched && usuariosForm.get('dni')?.errors?.['required']">
+                          El campo "DNI" es requerido
+                      </div>
+                      <!-- <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('title')?.touched && usuariosForm.get('title')?.errors?.['maxlength']">
+                          El campo no puede contener más de 50 caracteres
+                      </div> -->
+                  </div>
+
+                   <!-- Campo Nombre  -->
+                   <div class="form-group row">
+                    <label for="descripcion" class="col-form-label cl-sm-2">Nombre y Apellidos<span class="text-red">*</span></label>
+                    <input id="nombre" class="form-control" [(ngModel)]="paciente.nombre" name="nombre" formControlName="nombre">
+
+                    <!-- Validaciones de description -->
+                    <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('nombre')?.touched && usuariosForm.get('nombre')?.errors?.['required']">
+                        Los "Nombre y Apellidos " son obligatorios
+                    </div>
+
+                  <!-- Campo Email -->
+                  <div class="form-group row">
+                      <label for="descripcion" class="col-form-label cl-sm-2">Email<span class="text-red">*</span></label>
+                      <input id="email" class="form-control" [(ngModel)]="paciente.email" name="email" formControlName="email">
+
+                      <!-- Validaciones de description -->
+                      <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('email')?.touched && usuariosForm.get('email')?.errors?.['required']">
+                          El "Email" es obligatorio
+                      </div>
+                  </div>
+
+                   <!-- Campo Teléfono -->
+                   <div class="form-group row">
+                    <label for="descripcion" class="col-form-label cl-sm-2">Teléfono<span class="text-red">*</span></label>
+                    <input id="telefono" class="form-control" [(ngModel)]="paciente.telefono" name="telefono" formControlName="telefono">
+
+                    <!-- Validaciones de description -->
+                    <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('telefono')?.touched && usuariosForm.get('telefono')?.errors?.['required']">
+                        El "Teléfono" es obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group row" *ngIf="!paciente.id">
+                  <label for="password" class="col-form-label cl-sm-2">Contraseña<span class="text-red">*</span></label>
+                  <input type="password" id="password" class="form-control" [(ngModel)]="paciente.password" name="password" formControlName="password">
+
+                  <!-- Validaciones de password -->
+                  <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('password')?.touched && usuariosForm.get('password')?.errors?.['required']">
+                      El campo "Contraseña" es requerido
+                  </div>
+                </div>
+
+
+                  <div class="form-group d-flex flex-column col-sm-6">
+                      <label for="role" class="col-form-label p-label">Rol<span class="text-red">*</span></label>
+                      <select class="form-select" id="role" [(ngModel)]="paciente.role" name="role" formControlName="role">
+                          <option value="paciente">Paciente</option>
+                          <option value="empleado">Empleado</option>
+                      </select>
+
+                      <!-- Validaciones de role -->
+                      <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('role')?.touched && usuariosForm.get('role')?.errors?.['required']">
+                          El campo "Rol" es requerido
+                      </div>
+
+                      <div class="mt-3">
+                        <input class="form-check-input" type="checkbox" id="activo" color="primary"  name="activo" formControlName="activo" [(ngModel)]="paciente.activo" checked>
+                        <label class="ms-2 form-check-label" for="activo">
+                            Activo
+                        </label>
+                    </div>
+                  </div>
+
+                  <!-- CAMPO ID DEL FISIO -->
+
+                  <div class="form-group" *ngIf="paciente.role!='empleado'">
+                    <label for="idFisio" class="col-form-label">Fisio Asignado<span class="text-red">*</span></label>
+                    <select id="idFisio" class="form-select" [(ngModel)]="paciente.idFisio" name="idFisio" formControlName="idFisio">
+                        <option *ngFor="let fisio of fisios" [ngValue]="fisio.id">
+                            DNI: {{fisio.dni}}  ({{fisio.nombre}})
+                        </option>
+                    </select>
+                  </div>
+
+                  <!-- Validaciones de DNI Fisio -->
+                  <div class="alert alert-danger mt-1" *ngIf="usuariosForm.get('idFisio')?.touched && usuariosForm.get('idFisio')?.errors?.['required']">
+                    El campo "Fisio" es requerido
+                </div>
+
+                  <div class="row  mt-3">
+
+                    <!-- Campo Antecedentes -->
+                    <div class="form-group d-flex flex-column"  *ngIf="paciente.role!='empleado'">
+                        <label style="padding-left: 12px;" for="antecedentes" class="col-form-label cl-sm-2">Antecedentes</label>
+                        <textarea type="text" id="antecedentes" class="form-control" [(ngModel)]="paciente.antecedentes" formControlName="antecedentes" name="antecedentes"></textarea>
+                    </div>
+
+                    <!-- Campo Motivo -->
+                    <div class="form-group d-flex flex-column"  *ngIf="paciente.role!='empleado'">
+                      <label style="padding-left: 12px;" for="motivo" class="col-form-label cl-sm-2">Motivos</label>
+                      <textarea type="text" id="motivo" class="form-control" [(ngModel)]="paciente.motivo" formControlName="motivo" name="motivo"></textarea>
+                  </div>
+
+                  <!-- Campo Exploracion -->
+                  <div class="form-group d-flex flex-column"  *ngIf="paciente.role!='empleado'">
+                    <label style="padding-left: 12px;" for="exploracion" class="col-form-label cl-sm-2">Exploracion</label>
+                    <textarea type="text" id="exploracion" class="form-control" [(ngModel)]="paciente.exploracion" formControlName="motivo" name="exploracion"></textarea>
+                </div>
+
+                <!-- Campo Diagnostico -->
+                <div class="form-group d-flex flex-column"  *ngIf="paciente.role!='empleado'">
+                  <label style="padding-left: 12px;" for="fechaInicio" class="col-form-label cl-sm-2">Diagnostico</label>
+                  <textarea type="text" id="diagnostico" class="form-control" [(ngModel)]="paciente.diagnostico" formControlName="motivo" name="diagnostico"></textarea>
+              </div>
+
+              <!-- Campo Ejercicios -->
+              <div class="form-group d-flex flex-column"  *ngIf="paciente.role!='empleado'">
+                <label style="padding-left: 12px;" for="ejercicios" class="col-form-label cl-sm-2">Ejercicios</label>
+                <textarea type="text" id="ejercicios" class="form-control" [(ngModel)]="paciente.ejercicios" formControlName="ejercicios" name="ejercicios"></textarea>
+            </div>
+
+            <!-- Campo Recomendaciones -->
+            <div class="form-group d-flex flex-column"  *ngIf="paciente.role!='empleado'">
+              <label style="padding-left: 12px;" for="recomendaciones" class="col-form-label cl-sm-2">Recomendaciones</label>
+              <textarea type="text" id="recomendaciones" class="form-control" [(ngModel)]="paciente.recomendaciones" formControlName="recomendaciones" name="recomendaciones"></textarea>
+          </div>
+
+                </div>
+
+                </div>
+              </div>
+
+
+
+              <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+                  <button class="btn btn-primary w-50" (click)="crearPaciente()" *ngIf="!paciente.id else elseBlock" [disabled]="usuariosForm.invalid">Crear Paciente</button>
+
+                  <ng-template #elseBlock>
+                      <button class="btn btn-primary w-50" (click)="actualizarPaciente()" [disabled]="usuariosForm.invalid">Actualizar</button>
+                  </ng-template>
+
+                  <!-- <span id="spinner"> <mat-spinner [diameter]="30"></mat-spinner> </span> -->
+              </div>
+          </form>
+
+      </div>
+  </div>
+</div>

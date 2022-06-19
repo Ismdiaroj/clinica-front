@@ -1,0 +1,17 @@
+.main {
+  background-image: url("../../../assets/img/Atos-MS-Teams-Background-9.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+}
+
+.card-atos {
+  background-color: var(--atos-blue);
+  height: 40px;
+  border-radius: 5px;
+}
+
+.card {
+  border-radius: 5px;
+}

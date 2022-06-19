@@ -1,0 +1,87 @@
+<div class="container mt-3">
+  <div class="card border-primary mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Listado de usuarios</span>
+      <div class="d-flex gap-3">
+        <button class="btn btn-success d-flex align-items-center gap-2" routerLink="form"> Registrar usuario <mat-icon>person_add</mat-icon> </button>
+      </div>
+    </div>
+    <div class="card-body text-primary">
+
+      <div class="row justify-content-center">
+
+
+        <table class="table table-striped w-auto mt-1">
+          <thead class="text-center">
+            <tr>
+              <th>DNI</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+
+              <th>
+                <div class="d-flex align-items-center justify-content-center">
+                  Rol <mat-icon class="pointer" data-bs-toggle="dropdown" aria-expanded="false">keyboard_arrow_down</mat-icon>
+                  <ul class="dropdown-menu">
+                    <li class="pointer dropdown-item"> Pacientes </li>
+                    <li class="pointer dropdown-item"> Empleados </li>
+                  </ul>
+                </div>
+              </th>
+
+              <th>Modificaciones</th>
+              <th>Consultas</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let paciente of pacientes">
+              <td class="td-centered">{{paciente.dni}}</td>
+              <td class="td-centered">{{paciente.nombre}}</td>
+              <td class="td-centered">{{paciente.email}}</td>
+              <td class="td-centered">{{paciente.telefono}}</td>
+              <td class="td-centered">{{paciente.role}}</td>
+              <td>
+                <div class="d-flex justify-content-center gap-2">
+                  <div class="dropdown">
+                    <button class="btn btn-mod dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Modificaciones
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li class="px-2">
+                        <button type="button" class="btn btn-warning d-flex justify-content-center align-items-center gap-2 w-100">Dar de baja <mat-icon>block</mat-icon> </button>
+                      </li>
+                      <li class="mt-2 px-2"> <button type="button" class="btn btn-primary d-flex justify-content-center align-items-center gap-2 w-100" [routerLink]="['form/', paciente.id]"> Editar <mat-icon>edit</mat-icon> </button> </li>
+                      <li class="mt-2 px-2"> <button type="button" name="eliminar" class="btn btn-danger d-flex justify-content-center align-items-center gap-2 w-100" (click)="eliminarPaciente(paciente)"> Eliminar <mat-icon>delete</mat-icon> </button> </li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-content-center gap-2">
+                  <div class="dropdown"*ngIf="paciente.role=='paciente'">
+                    <button type="button" name="verConsulta" class="btn btn-primary d-flex justify-content-center align-items-center gap-2 w-100" [routerLink]="['/usuarios/consultas', paciente.id]"> Consultas del Paciente <mat-icon>assignment</mat-icon> </button>
+                  </div>
+                  <div class="dropdown" *ngIf="paciente.role=='empleado'">
+                    <button type="button" name="verConsulta" class="btn btn-secondary d-flex justify-content-center align-items-center gap-2 w-100" [routerLink]="['/perfil/', paciente.id]"> Consultas del Empleado <mat-icon>assignment</mat-icon> </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row align-items-center gap-2 gap-md-0">
+          <div class="col-md-6 d-flex justify-content-center justify-content-md-start align-items-center gap-3">
+            Filtro: filtro
+            <button class="btn btn-primary d-flex align-items-center justify-content-center gap-1" > Quitar filtros <mat-icon>settings_backup_restore</mat-icon></button>
+          </div>
+          <div class="col-md-6 d-flex justify-content-center">
+            <button class="ms-auto p-2 btn btn-info d-flex gap-2"  >Mostar Altas <mat-icon>person</mat-icon> <mat-icon>arrow_upward</mat-icon> </button>
+            <ng-template #elseBlock>
+              <button class="ms-md-auto p-2 btn btn-info d-flex gap-2" >Mostar Bajas <mat-icon>person</mat-icon> <mat-icon>arrow_downward</mat-icon> </button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

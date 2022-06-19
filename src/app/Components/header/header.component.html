@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/inicio">Clinica Díaz Rojas</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/inicio">Inicio</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role=='empleado'">
+          <a class="nav-link" routerLink="/usuarios"> Usuarios</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role=='paciente'||role=='empleado'">
+          <a class="nav-link" [routerLink]="['/perfil/',usuario.id]"> Perfil</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role=='paciente'">
+          <a class="nav-link" [routerLink]="['/consultas/form/',usuario.id]"> Pedir Cita</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/ayuda">Ayuda</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right mb-2" *ngIf="!isLogged; else loggedOut">
+        <li> <button type="button" class="btn btn-primary w-100 mt-2" (click)="iniciarSesion()">Iniciar sesión</button></li>
+      </ul>
+      <ng-template #loggedOut>
+        <ul class="navbar-nav navbar-right mb-2">
+          <li> <button type="button" class="btn btn-warning w-100 mt-2" (click)="cerrarSesion()">Cerrar sesión</button></li>
+        </ul>
+      </ng-template>
+
+    </div>
+  </div>
+</nav>

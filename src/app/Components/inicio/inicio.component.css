@@ -1,0 +1,65 @@
+.main {
+  background-image: url("../../../assets/img/Atos-MS-Teams-Background-9.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.interes {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+.text-light-green {
+  color: #16D39A;
+}
+
+.text-cyan {
+  color: #00B5B8;
+}
+
+.photo-link {
+  width: 250px;
+  height: 200px;
+  text-decoration: none;
+
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: white;
+  color: var(--atos-blue);
+  border: 1px solid var(--atos-blue);
+  opacity: 1;
+  transition: 0.6s;
+}
+.photo-link:hover {
+  background-color: var(--atos-blue);
+  color: white;
+  opacity: 0.7;
+}
+
+.atos-img {
+  fill: var(--atos-blue);
+  transition: 0.6s;
+}
+.photo-link:hover .atos-img {
+  fill: white;
+}
+
+.card-atos {
+  background-color: var(--atos-blue);
+  height: 40px;
+  border-radius: 5px;
+}
+
+.card {
+  border-radius: 5px;
+}
+
+.shadow-block {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+@media (min-width: 992px) {
+  .main {
+      height: 100vh;
+  }
+}

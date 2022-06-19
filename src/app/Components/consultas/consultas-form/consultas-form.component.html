@@ -1,0 +1,98 @@
+<div class="container p-3">
+  <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+              {{ textoTitulo == true? titulo1 : titulo2}}
+          </div>
+          <div>
+              <button class="btn btn-info d-flex align-items-center gap-2" routerLink="/usuarios"> <mat-icon>keyboard_backspace</mat-icon> Volver atrás </button>
+          </div>
+      </div>
+      <div class="card-body">
+
+          <form [formGroup]="consultasForm">
+              <div class="row justify-content-center gap-1">
+
+                  <!-- Campo Fecha -->
+                  <div class="form-group row">
+                      <label for="fecha" class="col-form-label cl-sm-2">Fecha Consulta<span class="text-red">*</span></label>
+                      <input type="date" id="fecha" class="form-control" [(ngModel)]="consulta.fecha" name="fecha" formControlName="fecha">
+
+                      <!-- Validaciones de Seguro -->
+                      <div class="alert alert-danger mt-1" *ngIf="consultasForm.get('fecha')?.touched && consultasForm.get('fecha')?.errors?.['required']">
+                          El campo "Fecha" es requerido
+                      </div>
+                  </div>
+
+                  <!-- Campo ID Paciente -->
+                  <div class="form-group row" >
+                    <input type="hidden" id="idPaciente" class="form-control" [(ngModel)]="consulta.idPaciente" name="idPaciente" formControlName="idPaciente">
+                    <!-- Validaciones de Seguro -->
+                    <div class="alert alert-danger mt-1" *ngIf="consultasForm.get('seguro')?.touched && consultasForm.get('seguro')?.errors?.['required']">
+                        El campo "Seguro" es requerido
+                    </div>
+                  </div>
+
+                  <div class="form-group " *ngIf="!consulta.id && role=='empleado'">
+                    <label for="idPaciente" class="col-form-label">DNI<span class="text-red">*</span></label>
+                    <select id="idPaciente" class="form-select" [(ngModel)]="consulta.idPaciente" name="idPaciente" formControlName="idPaciente">
+                        <option *ngFor="let paciente of pacientes" [ngValue]="paciente.id">
+                            DNI: {{paciente.dni}}  ({{paciente.nombre}})
+                        </option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-group " *ngIf="!consulta.id && role=='paciente'">
+                    <label for="idPaciente" class="col-form-label">DNI<span class="text-red">*</span></label>
+                    <select id="idPaciente" class="form-select" [(ngModel)]="consulta.idPaciente" name="idPaciente" formControlName="idPaciente">
+                        <option  [ngValue]="pacienteLogeado.id">
+                            DNI: {{pacienteLogeado.dni}}  ({{pacienteLogeado.nombre}})
+                        </option>
+                    </select>
+                  </div>
+
+
+                  <!-- Campo Seguro -->
+                  <div class="form-group row">
+                    <label for="titulo" class="col-form-label cl-sm-2">Seguro</label>
+                    <input type="text" id="seguro" class="form-control" [(ngModel)]="consulta.seguro" name="seguro" formControlName="seguro">
+
+                    <!-- Validaciones de Seguro -->
+                    <div class="alert alert-danger mt-1" *ngIf="consultasForm.get('seguro')?.touched && consultasForm.get('seguro')?.errors?.['required']">
+                        El campo "Seguro" es requerido
+                    </div>
+                </div>
+
+                <!-- Campo Tratamineto -->
+                <div class="form-group row" *ngIf="role=='empleado'">
+                  <label for="titulo" class="col-form-label cl-sm-2">Tratamiento</label>
+                  <textarea type="text" id="tratamiento" class="form-control" [(ngModel)]="consulta.tratamiento" name="tratamiento" formControlName="tratamiento"></textarea>
+
+              </div>
+
+              <!-- Campo Evolucion -->
+              <div class="form-group row" *ngIf="role=='empleado'">
+                <label for="titulo" class="col-form-label cl-sm-2">Evolución</label>
+                <textarea type="text" id="evolucion" class="form-control" [(ngModel)]="consulta.evolucion" name="evolucion" formControlName="evolucion"></textarea>
+            </div>
+
+
+              </div>
+
+
+
+              <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+                  <button class="btn btn-primary w-50" (click)="crearConsulta()" *ngIf="!consulta.id else elseBlock" [disabled]="consultasForm.invalid">Crear Consulta</button>
+
+                  <ng-template #elseBlock>
+                      <button class="btn btn-primary w-50" (click)="actualizarConsulta()" [disabled]="consultasForm.invalid">Actualizar</button>
+                  </ng-template>
+
+                  <!-- <span id="spinner"> <mat-spinner [diameter]="30"></mat-spinner> </span> -->
+              </div>
+          </form>
+
+      </div>
+  </div>
+</div>

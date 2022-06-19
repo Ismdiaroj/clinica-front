@@ -1,0 +1,57 @@
+/* Estilos generales */
+:root {
+  /* Fuente */
+  --font-family: "Raleway";
+
+  /* Colores */
+  --atos-blue: #00a1ff;
+  --atos-dark-blue: #0090e5;
+  --error-color: #d0021b;
+  --light-error-color: #d55155;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-family), Roboto, "Helvetica Neue", sans-serif;
+}
+
+.swal2-height-auto {
+  height: 100% !important;
+}
+
+/* Botón de modificaciones */
+.btn-mod {
+  color: white;
+  background-color: rgb(130, 54, 201);
+}
+.btn-mod:hover {
+  color: white;
+  background-color: rgb(104, 43, 161);
+}
+
+/* Botón de asociaciones */
+.btn-asoc {
+  color: white;
+  background-color: var(--atos-blue);
+}
+.btn-asoc:hover {
+  color: white;
+  background-color: var(--atos-dark-blue);
+}
+
+/* Enlaces */
+a {
+  color: var(--atos-blue);
+}
+a:hover {
+  color: var(--atos-dark-blue);
+}
+
+/* Círculo de carga */
+#spinner {
+  display: none;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
