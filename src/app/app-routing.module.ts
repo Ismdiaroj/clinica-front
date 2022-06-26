@@ -76,10 +76,6 @@ const routes: Routes = [
     path: 'perfil/:idUsuario',
     component: PerfilComponent,
     canActivate:[AuthLoggedGuard]
-  },
-  {
-    path: 'ayuda',
-    component: AyudaComponent
   }
 
 ];
