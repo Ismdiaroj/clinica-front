@@ -22,9 +22,7 @@
           <a class="nav-link" [routerLink]="['/consultas/form/',usuario.id]"> Pedir Cita</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/ayuda">Ayuda</a>
-        </li>
+   
       </ul>
       <ul class="navbar-nav navbar-right mb-2" *ngIf="!isLogged; else loggedOut">
         <li> <button type="button" class="btn btn-primary w-100 mt-2" (click)="iniciarSesion()">Iniciar sesión</button></li>
